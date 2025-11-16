@@ -2,6 +2,10 @@ const categoriesEl = document.getElementById("categories");
 const symptomsEl = document.getElementById("symptoms");
 const solutionsEl = document.getElementById("solutions");
 
+const searchInput = document.getElementById("searchInput");
+const searchResultsEl = document.getElementById("searchResults");
+
+
 // Hjälpfunktion: nollställ symptom + lösningar
 function resetSections() {
   symptomsEl.innerHTML = "";
@@ -75,16 +79,90 @@ function loadSolutions(categoryKey, symptomKey) {
 
   let html = `<button onclick="loadCategories()">⬅ Tillbaka</button>`;
   html += `<p class="breadcrumb">${categoryName} › ${symptomName}</p>`;
-  html += `<h2>Felsökningssteg</h2><ol>`;
+  html += `<h2>Felsökningssteg</h2>`;
+  html += `<ul class="steps-list">`;
 
-  data.steps.forEach(step => {
-    html += `<li>${step}</li>`;
+  data.steps.forEach((step, index) => {
+    html += `
+      <li class="step-item">
+        <label>
+          <input type="checkbox" class="step-checkbox">
+          <span>${step}</span>
+        </label>
+      </li>
+    `;
   });
 
-  html += "</ol>";
+  html += `</ul>`;
   solutionsEl.innerHTML = html;
 }
+
+function searchProblems(query) {
+  const q = query.trim().toLowerCase();
+  searchResultsEl.innerHTML = "";
+
+  if (!q) {
+    searchResultsEl.innerHTML =
+      '<p class="search-help">Börja skriva för att söka efter problem…</p>';
+    return;
+  }
+
+  const results = [];
+
+  // loopa igenom alla kategorier och symptom
+  Object.entries(troubleshootingData).forEach(([categoryKey, category]) => {
+    Object.entries(category.symptoms).forEach(([symptomKey, symptom]) => {
+      const nameMatch = symptom.name.toLowerCase().includes(q);
+      const stepsMatch = symptom.steps.some(step =>
+        step.toLowerCase().includes(q)
+      );
+
+      if (nameMatch || stepsMatch) {
+        results.push({
+          categoryKey,
+          symptomKey,
+          categoryName: category.name,
+          symptomName: symptom.name
+        });
+      }
+    });
+  });
+
+  if (results.length === 0) {
+    searchResultsEl.innerHTML = "<p>Inga träffar hittades.</p>";
+    return;
+  }
+
+  // Bygg HTML för träffar
+  results.forEach(result => {
+    const div = document.createElement("div");
+    div.className = "search-result";
+    div.innerHTML = `
+      <div class="search-result-title">${result.symptomName}</div>
+      <div class="search-result-meta">${result.categoryName}</div>
+    `;
+    div.onclick = () => {
+      // öppna direkt rätt lösning
+      loadSolutions(result.categoryKey, result.symptomKey);
+      // scrolla ner lite till lösningspanelen
+      solutionsEl.scrollIntoView({ behavior: "smooth" });
+    };
+    searchResultsEl.appendChild(div);
+  });
+}
+
+
 
 
 // Starta appen
 loadCategories();
+
+if (searchInput) {
+  searchInput.addEventListener("input", e => {
+    searchProblems(e.target.value);
+  });
+
+  // visa hjälptext från start
+  searchProblems("");
+}
+

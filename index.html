@@ -14,10 +14,21 @@
   </header>
 
    <main class="container">
-    <section id="categories" class="card-grid"></section>
-    <section id="symptoms" class="panel hidden"></section>
-    <section id="solutions" class="panel hidden"></section>
-  </main>
+  <section id="search" class="panel">
+    <h2>Sök efter problem</h2>
+    <p class="search-help">Skriv t.ex. "Outlook", "skrivare", "VPN"…</p>
+    <input
+      id="searchInput"
+      type="text"
+      placeholder="Sök efter problem eller program..."
+    />
+    <div id="searchResults"></div>
+  </section>
+
+  <section id="categories" class="card-grid"></section>
+  <section id="symptoms" class="panel hidden"></section>
+  <section id="solutions" class="panel hidden"></section>
+</main>
 
   <script src="data.js"></script>
   <script src="script.js"></script>
