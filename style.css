@@ -1,0 +1,143 @@
+* {
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  margin: 0;
+  background: #f4f6f8;
+  color: #222;
+}
+
+header {
+  text-align: center;
+  padding: 24px 16px 8px;
+  background: #ffffff;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.05);
+  margin-bottom: 24px;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 24px;
+  letter-spacing: 0.05em;
+}
+
+header p {
+  margin-top: 6px;
+  font-size: 14px;
+  color: #555;
+}
+
+.container {
+  max-width: 1000px;
+  margin: 0 auto 40px;
+  padding: 0 16px 32px;
+}
+
+/* Kategorikort högst upp */
+.card-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 12px;
+  margin-bottom: 24px;
+}
+
+/* Paneler för symptom + lösningar */
+.panel {
+  background: #ffffff;
+  padding: 20px 24px;
+  border-radius: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  margin-bottom: 18px;
+}
+
+/* Kort (kategorier + symptom) */
+.card {
+  background: #ffffff;
+  padding: 12px 18px;
+  border-radius: 8px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+  cursor: pointer;
+  transition: transform 0.15s ease, box-shadow 0.15s ease,
+    background-color 0.15s ease;
+  font-size: 14px;
+  min-width: 160px;
+  text-align: center;
+}
+
+.card:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.12);
+  background-color: #f0f6ff;
+}
+
+/* Rubriker i panelerna */
+#symptoms h2,
+#solutions h2 {
+  margin-top: 0;
+  margin-bottom: 12px;
+  font-size: 18px;
+}
+
+/* Lösningslista */
+#solutions ol {
+  padding-left: 20px;
+  margin: 0;
+}
+
+#solutions li {
+  margin-bottom: 6px;
+}
+
+/* Tillbaka-knapp */
+button {
+  padding: 8px 16px;
+  background: #0057a5;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  margin-bottom: 16px;
+  font-size: 13px;
+}
+
+button:hover {
+  background: #003e78;
+}
+
+.hidden {
+  display: none;
+}
+
+/* Lite bättre mobilvy */
+@media (max-width: 600px) {
+  header h1 {
+    font-size: 20px;
+  }
+
+  .panel {
+    padding: 16px 16px;
+  }
+
+  .card {
+    width: 100%;
+  }
+}
+
+.breadcrumb {
+  margin: 0 0 8px;
+  font-size: 13px;
+  color: #666;
+}
+
+.card-icon {
+  font-size: 26px;
+  margin-bottom: 6px;
+}
+
+.card-title {
+  font-size: 14px;
+  font-weight: 600;
+}
